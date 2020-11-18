@@ -51,7 +51,7 @@ spec:
           - name: spring_profiles_active
             value: mysql
           - name: MYSQL_URL
-            value: "jdbc:mysql://pet-db-mysql.petclinic.svc.cluster.local/petclinic"
+            value: "jdbc:mysql://spring-db-mysql.petclinic.svc.cluster.local/petclinic"
 ---
 apiVersion: v1
 kind: Service
