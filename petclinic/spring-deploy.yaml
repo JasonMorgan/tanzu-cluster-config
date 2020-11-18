@@ -2,6 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: petclinic
   name: petclinic-deployment
   labels:
     app: petclinic
@@ -55,6 +56,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: petclinic
   name: pb-frontend
 spec:
   selector:
@@ -74,6 +76,7 @@ metadata:
       kubernetes.io/ingress.class: contour
       kubernetes.io/tls-acme: "true"
   name: ingress-petclinic
+  namespace: petclinic
 spec:
     rules:
     - host: petclinic.59s.io
