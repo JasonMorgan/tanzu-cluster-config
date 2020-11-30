@@ -19,7 +19,7 @@ spec:
       containers:
       - name: petclinic
         imagePullPolicy: Always
-        image: harbor.59s.io/59s/spring-petclinic@sha256:12b17fb37957031b6e62b527f2e51a1b3ac5ef274ed020f2ff49f1ad42d5e8b2
+        image: harbor.59s.io/59s/spring-petclinic@sha256:b031569e36d467f602759e31039d9a3cfa014153a83d5791158f6c120b03838c
         ports:
         - containerPort: 8080
         resources:
