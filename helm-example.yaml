@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: blog
+spec:
+  destination:
+    namespace: wordpress
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: wordpress
+    helm:
+      parameters:
+      - name: service.type
+        value: ClusterIP
+      - name: wordpressBlogName
+        value: Jason's Blog!
+      valueFiles:
+      - values.yaml
+    repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 10.0.7
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
