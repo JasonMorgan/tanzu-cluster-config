@@ -1,0 +1,30 @@
+---
+apiVersion: 1
+kind: Namespace
+metadata:
+  name: concourse
+---
+apiVersion: 1
+kind: Namespace
+metadata:
+  name: kpack
+---
+apiVersion: 1
+kind: Namespace
+metadata:
+  name: cert-manager
+---
+apiVersion: 1
+kind: Namespace
+metadata:
+  name: projectcontour
+---
+apiVersion: 1
+kind: Namespace
+metadata:
+  name: images
+---
+apiVersion: 1
+kind: Namespace
+metadata:
+  name: kubeapps
