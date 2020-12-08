@@ -1,0 +1,104 @@
+concourse:
+  web:
+    externalUrl: https://ci.59s.io
+
+    localAuth:
+      enabled: false
+
+    kubernetes:
+      enabled: true
+      keepNamespaces: false
+
+    auth:
+      mainTeam:
+        github:
+          ## Comma-separated allow list of GitHub users.
+          ##
+          user: jasonmorgan
+
+          ## Comma-separated allow list of GitHub orgs.
+          ##
+          org: pivotal
+
+          ## Comma-separated allow list of GitHub teams.
+          ##
+          team:
+
+      ## Authentication (GitHub)
+      ##
+      github:
+        enabled: true
+
+        ## Hostname of GitHub Enterprise deployment (No scheme, No trailing slash)
+        ##
+        host:
+
+        ## CA certificate of GitHub Enterprise deployment
+        ##
+        useCaCert: false
+
+  worker:
+      driver: btrfs
+
+## Configuration values for Concourse Web components.
+## For more information regarding the characteristics of
+## Concourse Web nodes, see https://concourse-ci.org/concourse-web.html.
+##
+web:
+  service:
+    api:
+      ## For minikube, set this to ClusterIP, elsewhere use LoadBalancer or NodePort
+      ## Ref: https://kubernetes.io/docs/user-guide/services/#publishing-services---service-types
+      ##
+      type: ClusterIP
+
+      ## When using `web.service.api.type: ClusterIP`, sets the user-specified cluster IP.
+      ## Example: 172.217.1.174
+      ##
+      clusterIP: None
+
+
+  ## Ingress configuration.
+  ## Ref: https://kubernetes.io/docs/user-guide/ingress/
+  ##
+  ingress:
+    ## Enable Ingress.
+    ##
+    enabled: true
+
+    ## Annotations to be added to the web ingress.
+    ## Example:
+    ##   kubernetes.io/ingress.class: nginx
+    ##   kubernetes.io/tls-acme: 'true'
+    ##
+    annotations: 
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      ingress.kubernetes.io/force-ssl-redirect: "true"
+      kubernetes.io/ingress.class: contour
+      kubernetes.io/tls-acme: "true"
+
+    ## Hostnames.
+    ## Must be provided if Ingress is enabled.
+    ## Example:
+    ##   - concourse.domain.com
+    ##
+    hosts:
+      - ci.59s.io
+
+    ## TLS configuration.
+    ## Secrets must be manually created in the namespace.
+    ## Example:
+    ##   - secretName: concourse-web-tls
+    ##     hosts:
+    ##       - concourse.domain.com
+    ##
+    tls:
+      - secretName: concourse-web
+        hosts:
+          - ci.59s.io
+
+secrets:
+  ## Secrets for GitHub OAuth.
+  ##
+  githubClientId: 41db753f9117cdd6de7f
+  githubClientSecret: 3df056174df80d7d5741dcfd9b825b9b02119f71

@@ -1,23 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager
+  name: concourse
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: cert-manager
-    server: https://runtime1-apiserver-59576550.us-east-1.elb.amazonaws.com:6443
+    namespace: concourse
+    server: {{ .Values.spec.destination.server }}
   project: default
   source:
-    chart: cert-manager
+    chart: concourse
     helm:
       parameters:
-      - name: installCRDs
-        value: "true"
-    repoURL: https://charts.jetstack.io
-    targetRevision: v1.1.0
+      - name: web.service.api.type
+        value: ClusterIP
+    repoURL: https://concourse-charts.storage.googleapis.com
+    targetRevision: 14.5.0
   syncPolicy:
     automated:
       prune: true
